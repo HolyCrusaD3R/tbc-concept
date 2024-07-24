@@ -1,8 +1,7 @@
 .header {
     padding-left: 47px;
     padding-right: 47px;
-    /* border-bottom: 5px solid #eef1f1; */
-    border-bottom: 5px solid cyan;
+    border-bottom: 1px solid #eef1f1;
     position: fixed; 
     top: 0;
     width: 100%;
@@ -35,6 +34,22 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.sliderTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: blue;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+.sliderTitle.active::after {
+    width: 100%;
+    left: 0;
 }
 .optionsContainer {
     display: flex;
@@ -42,7 +57,7 @@
     gap: 16px;
 }
 #search:hover svg path{
-    fill: cyan;
+    fill: blue;
     transition: fill 0.3s ease;
 }
 #subscribeContainer {
@@ -71,7 +86,7 @@
     font-weight: bold;
 }
 .dropdownMenuLink:hover {
-    color: cyan;
+    color: blue;
     transition: color 0.3s ease;    
 }
 .loremIpsum {
@@ -103,7 +118,4 @@
 .conceptSpaceDropdown.show {
     opacity: 1;
     visibility: visible;
-}
-#productsTitle {
-    border-bottom: 5px solid cyan;
 }
