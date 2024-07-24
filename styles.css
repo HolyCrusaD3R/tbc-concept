@@ -1,0 +1,72 @@
+.header {
+    padding-left: 47px;
+    padding-right: 47px;
+    /* border-bottom: 5px solid #eef1f1; */
+    border-bottom: 5px solid cyan;
+    position: fixed; 
+    top: 0;
+    width: 100%;
+}
+.headerContainer {
+    height: 80px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1110px;
+}
+.logo {
+    cursor: pointer;
+}
+.sliders {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 32px;transition: fill 0.3s ease;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.optionsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+#search:hover svg path{
+    fill: cyan;
+    transition: fill 0.3s ease;
+}
+#subscribeContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+#languageSelectorContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+.dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100px;
+    gap: 10px;
+    width: 6rem;
+    /* position: absolute; */
+    /* margin-top: 5rem; */
+}
+.dropdownMenuLink {
+    text-decoration: none; 
+    color: black; 
+    font-weight: bold;
+}
+.dropdownMenuLink:hover {
+    color: cyan;
+    transition: color 0.3s ease;    
+}
+.loremIpsum {
+    margin-top: 10rem;
+}
