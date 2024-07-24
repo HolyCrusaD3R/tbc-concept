@@ -22,12 +22,19 @@
     cursor: pointer;
 }
 .sliders {
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 32px;transition: fill 0.3s ease;
     margin-left: 40px;
     margin-right: 40px;
+}
+.sliderTitle {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .optionsContainer {
     display: flex;
@@ -69,4 +76,34 @@
 }
 .loremIpsum {
     margin-top: 10rem;
+}
+.productsDropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.productsDropdown.show {
+    opacity: 1;
+    visibility: visible;
+}
+.offersDropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.offersDropdown.show {
+    opacity: 1;
+    visibility: visible;
+}
+.conceptSpaceDropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.conceptSpaceDropdown.show {
+    opacity: 1;
+    visibility: visible;
+}
+#productsTitle {
+    border-bottom: 5px solid cyan;
 }
