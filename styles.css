@@ -80,9 +80,11 @@
     /* position: absolute; */
     /* margin-top: 5rem; */
 }
-.dropdownMenuLink {
+.link {
     text-decoration: none; 
     color: black; 
+}
+.dropdownMenu {
     font-weight: bold;
 }
 .dropdownMenuLink:hover {
@@ -118,4 +120,18 @@
 .conceptSpaceDropdown.show {
     opacity: 1;
     visibility: visible;
+}
+
+.secondHeader {
+    position: fixed;
+    width: 100%;
+    height: 50%;
+    top: 80px;
+}
+.secondHeaderLink {
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
