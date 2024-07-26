@@ -1,3 +1,7 @@
+body {
+    font-size: 16px;
+}
+
 .header {
     padding-left: 47px;
     padding-right: 47px;
@@ -5,6 +9,8 @@
     position: fixed; 
     top: 0;
     width: 100%;
+    z-index: 1000; 
+    background-color: white;
 }
 .headerContainer {
     height: 80px;
@@ -65,6 +71,13 @@
     flex-direction: row;
     gap: 6px;
 }
+#subscribeContainer a div, #subscribeContainer a svg path{
+    color: blue;
+}
+#subscribeContainer:hover,
+#subscribeContainer:hover * {
+    color: cyan;
+}
 #languageSelectorContainer {
     display: flex;
     flex-direction: row;
@@ -77,6 +90,7 @@
     top: 100px;
     gap: 10px;
     width: 6rem;
+    z-index: 1001;
     /* position: absolute; */
     /* margin-top: 5rem; */
 }
@@ -123,10 +137,37 @@
 }
 
 .secondHeader {
+    opacity: 0;
+    visibility: hidden;
     position: fixed;
     width: 100%;
-    height: 50%;
+    height: 30%;
     top: 80px;
+    padding-left: 47px;
+    padding-right: 47px;
+    background-color: white;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 999;
+}
+.secondHeader.show {
+    opacity: 1;
+    visibility: visible;
+}
+.secondHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1110px;
+}
+.linkContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 10rem;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .secondHeaderLink {
     font-weight: 600;
@@ -134,4 +175,139 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    color: blue;
+}
+.secondHeaderLink:hover {
+    color: cyan;
+    transition: color 0.5s ease;
+}
+
+.global {
+    position: absolute;
+    top: 80px;
+    padding-left: 47px;
+    padding-right: 47px;
+    width: 100%;
+    height: auto;
+}
+.global p {
+    font-size: 16px; /* Adjust this value as needed */
+    line-height: 1.33; /* This is the value you specified earlier */
+}
+.globalContainer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    max-width: 1110px;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+.pageName {
+    font-size: 15px;
+}
+
+.poster {
+    height: 376px;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+}
+
+.poster {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.posterBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://static.tbcconcept.ge/desktop/media/ze324k50.yq4Become-2.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+@media (max-width: 1023px) {
+    .posterBackground {
+        background-image: url('https://static.tbcconcept.ge/tablet/media/ze324k50.yq4Become-2.webp');
+    }
+}
+@media (max-width: 767px) {
+    .posterBackground {
+        background-image: url('https://static.tbcconcept.ge/mobile/media/ze324k50.yq4Become-2.webp');
+    }
+}
+.posterTextContainer {
+    position: relative;
+    z-index: 1;
+    /* Add any additional styling for text visibility, such as: */
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.posterTextContainer {
+    margin-left: 80px;
+    width: 540px;
+}
+.posterTitle {
+    font-weight: bold;
+}
+.posterLink {
+    height: 50px;
+    width: 151px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.posterLink::before,
+.posterLink::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 0.3s ease;
+}
+.posterLink::before {
+    background-image: linear-gradient(15deg, #001682, #3240e5);
+    opacity: 1;
+}
+.posterLink::after {
+    background-color: #3295ce;
+    opacity: 0;
+}
+.posterLink:hover::before {
+    opacity: 0;
+}
+
+.posterLink:hover::after {
+    opacity: 1;
+}
+.posterLink > * {
+    position: relative;
+    z-index: 1;
+}
+.posterLink a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.posterLinkContainer {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
 }
