@@ -137,9 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleDragStart(e) {
-        if (e.target.tagName.toLowerCase() === 'img') {
+        // if (e.target.tagName.toLowerCase() === 'img') {
             e.preventDefault();
-        }
+        // }
         isDragging = true;
         startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
         startTranslateX = currentTranslateX;
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSliderPosition(clampedTranslateX);
     }
 
-    function handleDragEnd() {
+    function handleDragEnd(e) {
         if (!isDragging) return;
         isDragging = false;
         sliderContent.style.cursor = 'grab';
