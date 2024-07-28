@@ -470,7 +470,6 @@ body {
   border-radius: 10px;
 }
 
-/* Make the 360 pack span two rows */
 .pack:nth-child(2) {
   grid-row: span 2;
 }
@@ -491,7 +490,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Adjust the media query for responsiveness */
 @media screen and (max-width: 1024px) {
   .packsContainer {
     grid-template-columns: 1fr;
