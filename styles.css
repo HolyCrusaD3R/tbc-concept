@@ -779,3 +779,96 @@ body {
         background-image: url('https://static.tbcconcept.ge/mobile/media/nvmgsymp.3xqprivate banker.png');
     }
 }
+
+
+/* footer */
+.footer {
+    background-color: #f8f8f8;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footerContainer {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footerColumn {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.footerLogo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.footerColumn h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.footerColumn ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footerColumn ul li {
+    margin-bottom: 10px;
+}
+
+.footerColumn ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.footerColumn ul li a:hover {
+    color: #6200ee;
+}
+
+.footerSocial a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.footerSocial img {
+    width: 24px;
+    height: 24px;
+}
+
+.footerBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #e0e0e0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footerBottom p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.footerLinks {
+    display: flex;
+    gap: 15px;
+}
+
+.footerLinks a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.footerLinks a:hover {
+    color: #6200ee;
+}
