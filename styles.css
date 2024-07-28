@@ -543,6 +543,13 @@ body {
     user-select: none;
 }
 
+.offersSliderContent3 {
+    display: flex;
+    transition: transform 0.3s ease;
+    user-select: none;
+}
+
+
 .offerCard {
     flex: 0 0 calc(33.333% - 20px);
     margin-right: 30px;
@@ -629,6 +636,7 @@ body {
     overflow: hidden;
 }
 
+
 .progressBar {
     position: absolute;
     height: 100%;
@@ -646,6 +654,7 @@ body {
     border-radius: 2px;
     transition: transform 0.3s ease;
 }
+
 
 .sliderArrows {
     display: flex;

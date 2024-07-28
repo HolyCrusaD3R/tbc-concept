@@ -416,3 +416,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Optional: Add window resize handler to adjust slider if needed
     window.addEventListener('resize', initSlider);
 });
+
