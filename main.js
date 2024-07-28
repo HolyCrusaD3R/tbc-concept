@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sliderProgress = document.querySelector('.sliderProgress');
 
     let isDragging = false;
+    let hasDragged = false;
     let startX;
     let startTranslateX;
     let currentTranslateX = 0;
@@ -145,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sliderContent.style.transition = 'none';
         progressBar.style.transition = 'none';
         sliderContent.style.cursor = 'grabbing';
+        hasDragged = false;
     }
 
     function handleDrag(e) {
@@ -158,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const minTranslate = -totalWidth - overshootAmount;
         const maxTranslate = overshootAmount;
         const clampedTranslateX = Math.max(minTranslate, Math.min(newTranslateX, maxTranslate));
+        hasDragged = true;
         updateSliderPosition(clampedTranslateX);
     }
 
@@ -181,7 +184,13 @@ document.addEventListener('DOMContentLoaded', () => {
             targetTranslateX = -nearestSlide * slideWidth;
         }
 
+        if (hasDragged) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
         updateSliderPosition(targetTranslateX, true);
+        
     }
 
     function moveSlider(direction) {
@@ -223,6 +232,15 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = '33.333%';
         progressBar.style.position = 'absolute';
         progressBar.style.transition = 'transform 0.3s ease, width 0.3s ease';
+
+        Array.from(sliderContent.children).forEach(child => {
+            child.addEventListener('click', (e) => {
+                if (hasDragged) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
 
         updateProgressBar(0);
     }
