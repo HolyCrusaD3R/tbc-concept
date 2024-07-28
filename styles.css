@@ -85,8 +85,46 @@ body {
 .languageSelectorContainer {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 4px;
+  position: relative;
+  cursor: pointer;
 }
+
+.languageSelector {
+  padding: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.languageSelectorContainer:hover .languageSelector{
+  background-color: grey;
+  color: white;
+  border-radius: 4px;
+}
+
+.languageOption {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 4px 8px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.languageSelectorContainer:hover .languageOption {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 .dropdownMenu {
   display: flex;
   flex-direction: column;
