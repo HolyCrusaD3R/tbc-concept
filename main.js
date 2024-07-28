@@ -96,78 +96,140 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isDragging = false;
     let startX;
-    let scrollLeft;
-    let currentSlide = 0;
+    let startTranslateX;
+    let currentTranslateX = 0;
     const totalSlides = sliderContent.children.length;
     const visibleSlides = 3;
+    const overshootAmount = 100; // pixels of overshoot allowed
 
-    function updateProgressBar() {
-        const progress = (currentSlide / (totalSlides - visibleSlides));
-        const maxTranslate = sliderProgress.offsetWidth - progressBar.offsetWidth;
-        progressBar.style.transform = `translateX(${progress * maxTranslate}px)`;
+    function updateSliderPosition(translateX, animate = false) {
+        currentTranslateX = translateX;
+        sliderContent.style.transition = animate ? 'transform 0.3s ease' : 'none';
+        sliderContent.style.transform = `translateX(${translateX}px)`;
+        updateProgressBar(translateX);
     }
 
-    function scrollToSlide(slideIndex) {
+    function updateProgressBar(translateX) {
         const slideWidth = sliderContent.children[0].offsetWidth;
-        sliderContent.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
-        currentSlide = slideIndex;
-        updateProgressBar();
+        const totalWidth = slideWidth * (totalSlides - visibleSlides);
+        let progress = -translateX / totalWidth;
+
+        // Apply squeezing effect
+        const squeezeAmount = 20; // maximum pixels to squeeze
+        let squeeze = 0;
+        let progressBarTranslateX = 0;
+
+        if (translateX > 0) {
+            squeeze = Math.min(translateX / 5, squeezeAmount);
+            progress = 0;
+            progressBarTranslateX = -squeeze;
+        } else if (translateX < -totalWidth) {
+            squeeze = Math.min((-translateX - totalWidth) / 5, squeezeAmount);
+            progress = 1;
+            progressBarTranslateX = sliderProgress.offsetWidth - progressBar.offsetWidth + squeeze;
+        } else {
+            progressBarTranslateX = progress * (sliderProgress.offsetWidth - progressBar.offsetWidth);
+        }
+
+        progressBar.style.transform = `translateX(${progressBarTranslateX}px)`;
+        progressBar.style.width = `calc(33.333% - ${squeeze}px)`;
     }
 
     function handleDragStart(e) {
+        if (e.target.tagName.toLowerCase() === 'img') {
+            e.preventDefault();
+        }
         isDragging = true;
         startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-        scrollLeft = currentSlide * sliderContent.children[0].offsetWidth;
+        startTranslateX = currentTranslateX;
+        sliderContent.style.transition = 'none';
+        progressBar.style.transition = 'none';
         sliderContent.style.cursor = 'grabbing';
-    }
-
-    function handleDragEnd() {
-        isDragging = false;
-        sliderContent.style.cursor = 'grab';
     }
 
     function handleDrag(e) {
         if (!isDragging) return;
         e.preventDefault();
-        const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-        const walk = (x - startX) * 2;
+        const currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        const diff = currentX - startX;
+        const newTranslateX = startTranslateX + diff;
         const slideWidth = sliderContent.children[0].offsetWidth;
-        const newSlide = Math.round((scrollLeft - walk) / slideWidth);
-        scrollToSlide(Math.max(0, Math.min(newSlide, totalSlides - visibleSlides)));
+        const totalWidth = slideWidth * (totalSlides - visibleSlides);
+        const minTranslate = -totalWidth - overshootAmount;
+        const maxTranslate = overshootAmount;
+        const clampedTranslateX = Math.max(minTranslate, Math.min(newTranslateX, maxTranslate));
+        updateSliderPosition(clampedTranslateX);
     }
 
+    function handleDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        sliderContent.style.cursor = 'grab';
+        sliderContent.style.transition = 'transform 0.3s ease';
+        progressBar.style.transition = 'transform 0.3s ease, width 0.3s ease';
+        
+        const slideWidth = sliderContent.children[0].offsetWidth;
+        const totalWidth = slideWidth * (totalSlides - visibleSlides);
+        let targetTranslateX;
+
+        if (currentTranslateX > 0) {
+            targetTranslateX = 0;
+        } else if (currentTranslateX < -totalWidth) {
+            targetTranslateX = -totalWidth;
+        } else {
+            const nearestSlide = Math.round(-currentTranslateX / slideWidth);
+            targetTranslateX = -nearestSlide * slideWidth;
+        }
+
+        updateSliderPosition(targetTranslateX, true);
+    }
+
+    function moveSlider(direction) {
+        const slideWidth = sliderContent.children[0].offsetWidth;
+        const totalWidth = slideWidth * (totalSlides - visibleSlides);
+        let newTranslateX = currentTranslateX + (direction * slideWidth);
+
+        newTranslateX = Math.max(-totalWidth, Math.min(0, newTranslateX));
+
+        updateSliderPosition(newTranslateX, true);
+    }
+
+    // Arrow click handlers
+    leftArrow.addEventListener('click', () => moveSlider(1));  // Positive direction to move left
+    rightArrow.addEventListener('click', () => moveSlider(-1));  // Negative direction to move right
+
+    // Drag event listeners
     sliderContent.addEventListener('mousedown', handleDragStart);
-    sliderContent.addEventListener('touchstart', handleDragStart);
+    sliderContent.addEventListener('touchstart', handleDragStart, { passive: false });
 
-    document.addEventListener('mouseup', handleDragEnd);
-    document.addEventListener('touchend', handleDragEnd);
+    window.addEventListener('mousemove', handleDrag);
+    window.addEventListener('touchmove', handleDrag, { passive: false });
 
-    document.addEventListener('mousemove', handleDrag);
-    document.addEventListener('touchmove', handleDrag);
-
-    leftArrow.addEventListener('click', () => {
-        currentSlide = Math.max(0, currentSlide - 1);
-        scrollToSlide(currentSlide);
-    });
-
-    rightArrow.addEventListener('click', () => {
-        currentSlide = Math.min(totalSlides - visibleSlides, currentSlide + 1);
-        scrollToSlide(currentSlide);
-    });
+    window.addEventListener('mouseup', handleDragEnd);
+    window.addEventListener('touchend', handleDragEnd);
 
     // Initial setup
-    sliderContent.style.display = 'flex';
-    sliderContent.style.transition = 'transform 0.3s ease';
-    sliderContent.style.cursor = 'grab';
-    Array.from(sliderContent.children).forEach(child => {
-        child.style.flex = `0 0 calc(${100 / visibleSlides}% - 20px)`;
-        child.style.marginRight = '30px';
-    });
+    function initSlider() {
+        sliderContent.style.display = 'flex';
+        sliderContent.style.transition = 'transform 0.3s ease';
+        sliderContent.style.cursor = 'grab';
 
-    // Set fixed width for progress bar
-    progressBar.style.width = '33.333%';
-    progressBar.style.position = 'absolute';
-    progressBar.style.transition = 'transform 0.3s ease';
+        Array.from(sliderContent.children).forEach(child => {
+            child.style.flex = `0 0 calc(${100 / visibleSlides}% - 20px)`;
+            child.style.marginRight = '30px';
+        });
 
-    updateProgressBar();
+        // Set initial width for progress bar
+        progressBar.style.width = '33.333%';
+        progressBar.style.position = 'absolute';
+        progressBar.style.transition = 'transform 0.3s ease, width 0.3s ease';
+
+        updateProgressBar(0);
+    }
+
+    // Call initial setup
+    initSlider();
+
+    // Optional: Add window resize handler to adjust slider if needed
+    window.addEventListener('resize', initSlider);
 });
