@@ -223,6 +223,8 @@ body {
     position: relative;
     overflow: hidden;
     border-radius: 5px;
+    height: 360px;
+    width: auto;
 }
 
 .posterBackground {
@@ -753,4 +755,27 @@ body {
     padding: 15px;
     background: white;
     height: 150px;
+}
+
+
+.poster2Background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://static.tbcconcept.ge/desktop/media/nvmgsymp.3xqprivate banker.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+@media (max-width: 1023px) {
+    .poster2Background {
+        background-image: url('https://static.tbcconcept.ge/tablet/media/nvmgsymp.3xqprivate banker.png');
+    }
+}
+@media (max-width: 767px) {
+    .poster2Background {
+        background-image: url('https://static.tbcconcept.ge/mobile/media/nvmgsymp.3xqprivate banker.png');
+    }
 }
